@@ -4,7 +4,6 @@ WORKDIR /app
 
 # Cache dependencies
 COPY pom.xml mvnw* ./
-COPY .mvn .mvn 2>/dev/null || true
 # Bring in Maven wrapper if present; otherwise fall back to Maven from the image
 RUN if [ ! -x ./mvnw ]; then \
         apk add --no-cache maven; \
