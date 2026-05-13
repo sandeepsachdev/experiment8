@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layout :: page('Search — Tuneful', ~{::section})}">
+<body>
+<section>
+    <form th:action="@{/search}" method="get" class="search-bar">
+        <input type="search" name="q" th:value="${query}"
+               placeholder="Search artist or song…" autofocus required minlength="2"/>
+        <button type="submit">Search</button>
+    </form>
+
+    <div th:if="${query == null or #strings.isEmpty(query)}" class="empty">
+        <p>Type at least 2 characters to search across millions of tracks.</p>
+    </div>
+
+    <div th:if="${query != null and !#strings.isEmpty(query)
+                 and #lists.isEmpty(result.tracks)
+                 and #lists.isEmpty(result.artists)}" class="empty">
+        <p>No matches for <strong th:text="${query}">…</strong>. Try a different spelling.</p>
+    </div>
+
+    <div th:if="${result.artists != null and !#lists.isEmpty(result.artists)}">
+        <h2>Artists</h2>
+        <div class="grid artist-grid">
+            <a th:each="a : ${result.artists}" th:href="@{/artist/{id}(id=${a.id})}"
+               class="card">
+                <img th:if="${a.pictureUrl}" th:src="${a.pictureUrl}" th:alt="${a.name}"/>
+                <div class="card-body">
+                    <div class="card-title" th:text="${a.name}">Artist</div>
+                    <div class="card-sub" th:if="${a.nbFans != null}"
+                         th:text="${#numbers.formatInteger(a.nbFans, 0, 'COMMA')} + ' fans'">
+                        fans
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <div th:if="${result.tracks != null and !#lists.isEmpty(result.tracks)}">
+        <h2>Tracks</h2>
+        <ul class="track-list">
+            <li th:each="t : ${result.tracks}">
+                <a th:href="@{/track/{id}(id=${t.id})}" class="track-row">
+                    <img th:if="${t.albumCover}" th:src="${t.albumCover}" th:alt="${t.title}"/>
+                    <div class="track-info">
+                        <div class="track-title" th:text="${t.title}">Title</div>
+                        <div class="track-artist" th:text="${t.artistName}">Artist</div>
+                    </div>
+                    <audio th:if="${t.previewUrl}" th:src="${t.previewUrl}"
+                           controls preload="none" onclick="event.preventDefault()"
+                           onmousedown="event.stopPropagation()"></audio>
+                </a>
+            </li>
+        </ul>
+    </div>
+</section>
+</body>
+</html>

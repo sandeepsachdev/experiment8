@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layout :: page('Charts — Tuneful', ~{::section})}">
+<body>
+<section>
+    <h1>Charts</h1>
+    <p class="lead">Top songs from Apple Music (by country) and Deezer (by genre).</p>
+
+    <form th:action="@{/charts}" method="get" class="filters">
+        <label>
+            Country (Apple Music)
+            <select name="country" onchange="this.form.submit()">
+                <option th:each="c : ${countries}"
+                        th:value="${c.key}"
+                        th:text="${c.value}"
+                        th:selected="${c.key == selectedCountry}">Country</option>
+            </select>
+        </label>
+
+        <label>
+            Genre (Deezer)
+            <select name="genre" onchange="this.form.submit()">
+                <option th:each="g : ${genres}"
+                        th:value="${g.key}"
+                        th:text="${g.value}"
+                        th:selected="${g.key == selectedGenre}">Genre</option>
+            </select>
+        </label>
+    </form>
+
+    <div class="chart-grid">
+        <div class="chart-col">
+            <h2>
+                <span th:text="${appleChart.source}">Apple Music</span>
+                · <span th:text="${appleChart.country}">Country</span>
+            </h2>
+            <ol class="chart" th:if="${!#lists.isEmpty(appleChart.entries)}">
+                <li th:each="e : ${appleChart.entries}">
+                    <span class="rank" th:text="${e.position}">1</span>
+                    <img th:if="${e.albumCover}" th:src="${e.albumCover}" th:alt="${e.title}"/>
+                    <div class="chart-info">
+                        <div class="chart-title" th:text="${e.title}">Title</div>
+                        <div class="chart-artist" th:text="${e.artistName}">Artist</div>
+                    </div>
+                </li>
+            </ol>
+            <p th:if="${#lists.isEmpty(appleChart.entries)}" class="empty">
+                Chart unavailable for this country right now.
+            </p>
+        </div>
+
+        <div class="chart-col">
+            <h2>
+                <span th:text="${deezerChart.source}">Deezer</span>
+                · <span th:text="${deezerChart.genre}">All Genres</span>
+            </h2>
+            <ol class="chart" th:if="${!#lists.isEmpty(deezerChart.entries)}">
+                <li th:each="e : ${deezerChart.entries}">
+                    <span class="rank" th:text="${e.position}">1</span>
+                    <img th:if="${e.albumCover}" th:src="${e.albumCover}" th:alt="${e.title}"/>
+                    <div class="chart-info">
+                        <div class="chart-title" th:text="${e.title}">Title</div>
+                        <div class="chart-artist" th:text="${e.artistName}">Artist</div>
+                    </div>
+                    <audio th:if="${e.previewUrl}" th:src="${e.previewUrl}"
+                           controls preload="none"></audio>
+                </li>
+            </ol>
+            <p th:if="${#lists.isEmpty(deezerChart.entries)}" class="empty">
+                Chart unavailable for this genre right now.
+            </p>
+        </div>
+    </div>
+</section>
+</body>
+</html>

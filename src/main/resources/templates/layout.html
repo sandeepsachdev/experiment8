@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:fragment="page(title, body)">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title th:text="${title} ?: 'Tuneful — Music Discovery'">Tuneful</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}"/>
+</head>
+<body>
+<header class="topbar">
+    <a th:href="@{/}" class="brand">🎵 Tuneful</a>
+    <nav>
+        <a th:href="@{/}"
+           th:classappend="${activePage == 'home'} ? 'active' : ''">Home</a>
+        <a th:href="@{/search}"
+           th:classappend="${activePage == 'search'} ? 'active' : ''">Search</a>
+        <a th:href="@{/charts}"
+           th:classappend="${activePage == 'charts'} ? 'active' : ''">Charts</a>
+    </nav>
+</header>
+
+<main>
+    <div th:replace="${body}">Page body goes here</div>
+</main>
+
+<footer>
+    <p>Powered by the Deezer and Apple Music APIs. No accounts, no ads.</p>
+</footer>
+</body>
+</html>

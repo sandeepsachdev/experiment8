@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: tuneful
+    runtime: docker
+    plan: free
+    dockerfilePath: ./Dockerfile
+    envVars:
+      - key: JAVA_OPTS
+        value: "-Xmx450m"
+    healthCheckPath: /

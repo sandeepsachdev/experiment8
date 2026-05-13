@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layout :: page('Tuneful — Music Discovery', ~{::section})}">
+<body>
+<section>
+    <div class="hero">
+        <h1>Find music you'll love.</h1>
+        <p class="lead">Search by artist or song name, then discover similar music.</p>
+
+        <form th:action="@{/search}" method="get" class="search-hero">
+            <input type="search" name="q" placeholder="Try 'daft' or 'bohemian rhapsody'"
+                   autofocus required minlength="2"/>
+            <button type="submit">Search</button>
+        </form>
+
+        <div class="quick-links">
+            <a th:href="@{/charts}">📈 Browse charts &rarr;</a>
+        </div>
+    </div>
+
+    <div class="features">
+        <div class="feature">
+            <h3>🔍 Partial-name search</h3>
+            <p>Find tracks and artists even when you only remember part of the name.</p>
+        </div>
+        <div class="feature">
+            <h3>✨ Discovery</h3>
+            <p>Click any artist or track to see similar music you'll probably enjoy.</p>
+        </div>
+        <div class="feature">
+            <h3>📊 Charts everywhere</h3>
+            <p>Top songs across 17 countries and 18 genres, refreshed from
+                Apple Music and Deezer.</p>
+        </div>
+    </div>
+</section>
+</body>
+</html>

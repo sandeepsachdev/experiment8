@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layout :: page('Discover — Tuneful', ~{::section})}">
+<body>
+<section>
+    <div th:if="${rec.seedArtist == null and rec.seedTrack == null}" class="empty">
+        <p>We couldn't find that artist or track. <a th:href="@{/search}">Try another search.</a></p>
+    </div>
+
+    <div th:if="${rec.seedTrack != null}" class="seed-block">
+        <img th:if="${rec.seedTrack.albumCover}" th:src="${rec.seedTrack.albumCover}"
+             th:alt="${rec.seedTrack.title}"/>
+        <div>
+            <div class="kicker">Because you like this track</div>
+            <h1 th:text="${rec.seedTrack.title}">Track</h1>
+            <p th:text="${rec.seedTrack.artistName}">Artist</p>
+            <audio th:if="${rec.seedTrack.previewUrl}" th:src="${rec.seedTrack.previewUrl}"
+                   controls preload="none"></audio>
+        </div>
+    </div>
+
+    <div th:if="${rec.seedArtist != null and rec.seedTrack == null}" class="seed-block">
+        <img th:if="${rec.seedArtist.pictureUrl}" th:src="${rec.seedArtist.pictureUrl}"
+             th:alt="${rec.seedArtist.name}"/>
+        <div>
+            <div class="kicker">Because you like</div>
+            <h1 th:text="${rec.seedArtist.name}">Artist</h1>
+            <p th:if="${rec.seedArtist.nbFans != null}"
+               th:text="${#numbers.formatInteger(rec.seedArtist.nbFans, 0, 'COMMA')} + ' fans on Deezer'">fans</p>
+        </div>
+    </div>
+
+    <div th:if="${seedKind == 'artist' and topTracks != null and !#lists.isEmpty(topTracks)}">
+        <h2>Top tracks</h2>
+        <ul class="track-list">
+            <li th:each="t : ${topTracks}">
+                <a th:href="@{/track/{id}(id=${t.id})}" class="track-row">
+                    <img th:if="${t.albumCover}" th:src="${t.albumCover}" th:alt="${t.title}"/>
+                    <div class="track-info">
+                        <div class="track-title" th:text="${t.title}">Title</div>
+                        <div class="track-artist" th:text="${t.artistName}">Artist</div>
+                    </div>
+                    <audio th:if="${t.previewUrl}" th:src="${t.previewUrl}"
+                           controls preload="none"></audio>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <div th:if="${rec.similarArtists != null and !#lists.isEmpty(rec.similarArtists)}">
+        <h2>Similar artists</h2>
+        <div class="grid artist-grid">
+            <a th:each="a : ${rec.similarArtists}" th:href="@{/artist/{id}(id=${a.id})}"
+               class="card">
+                <img th:if="${a.pictureUrl}" th:src="${a.pictureUrl}" th:alt="${a.name}"/>
+                <div class="card-body">
+                    <div class="card-title" th:text="${a.name}">Artist</div>
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <div th:if="${rec.similarTracks != null and !#lists.isEmpty(rec.similarTracks)}">
+        <h2>Tracks you may like</h2>
+        <ul class="track-list">
+            <li th:each="t : ${rec.similarTracks}">
+                <a th:href="@{/track/{id}(id=${t.id})}" class="track-row">
+                    <img th:if="${t.albumCover}" th:src="${t.albumCover}" th:alt="${t.title}"/>
+                    <div class="track-info">
+                        <div class="track-title" th:text="${t.title}">Title</div>
+                        <div class="track-artist" th:text="${t.artistName}">Artist</div>
+                    </div>
+                    <audio th:if="${t.previewUrl}" th:src="${t.previewUrl}"
+                           controls preload="none"></audio>
+                </a>
+            </li>
+        </ul>
+    </div>
+</section>
+</body>
+</html>
