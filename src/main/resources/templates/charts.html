@@ -40,9 +40,11 @@
                     <div class="cover">
                         <img th:if="${e.albumCover}" th:src="${e.albumCover}" th:alt="${e.title}"/>
                     </div>
-                    <div class="chart-info">
-                        <div class="chart-title" th:text="${e.title}">Title</div>
-                        <div class="chart-artist" th:text="${e.artistName}">Artist</div>
+                    <div class="chart-main">
+                        <div class="chart-info">
+                            <div class="chart-title" th:text="${e.title}">Title</div>
+                            <div class="chart-artist" th:text="${e.artistName}">Artist</div>
+                        </div>
                     </div>
                 </li>
             </ol>
@@ -62,12 +64,14 @@
                     <div class="cover">
                         <img th:if="${e.albumCover}" th:src="${e.albumCover}" th:alt="${e.title}"/>
                     </div>
-                    <div class="chart-info">
-                        <div class="chart-title" th:text="${e.title}">Title</div>
-                        <div class="chart-artist" th:text="${e.artistName}">Artist</div>
+                    <div class="chart-main">
+                        <div class="chart-info">
+                            <div class="chart-title" th:text="${e.title}">Title</div>
+                            <div class="chart-artist" th:text="${e.artistName}">Artist</div>
+                        </div>
+                        <audio th:if="${e.previewUrl}" th:src="${e.previewUrl}"
+                               controls preload="none"></audio>
                     </div>
-                    <audio th:if="${e.previewUrl}" th:src="${e.previewUrl}"
-                           controls preload="none"></audio>
                 </li>
             </ol>
             <p th:if="${#lists.isEmpty(deezerChart.entries)}" class="empty">

@@ -38,12 +38,14 @@
                     <div class="cover">
                         <img th:if="${t.albumCover}" th:src="${t.albumCover}" th:alt="${t.title}"/>
                     </div>
-                    <div class="track-info">
-                        <div class="track-title" th:text="${t.title}">Title</div>
-                        <div class="track-artist" th:text="${t.artistName}">Artist</div>
+                    <div class="track-main">
+                        <div class="track-info">
+                            <div class="track-title" th:text="${t.title}">Title</div>
+                            <div class="track-artist" th:text="${t.artistName}">Artist</div>
+                        </div>
+                        <audio th:if="${t.previewUrl}" th:src="${t.previewUrl}"
+                               controls preload="none"></audio>
                     </div>
-                    <audio th:if="${t.previewUrl}" th:src="${t.previewUrl}"
-                           controls preload="none"></audio>
                 </a>
             </li>
         </ul>
@@ -70,12 +72,14 @@
                     <div class="cover">
                         <img th:if="${t.albumCover}" th:src="${t.albumCover}" th:alt="${t.title}"/>
                     </div>
-                    <div class="track-info">
-                        <div class="track-title" th:text="${t.title}">Title</div>
-                        <div class="track-artist" th:text="${t.artistName}">Artist</div>
+                    <div class="track-main">
+                        <div class="track-info">
+                            <div class="track-title" th:text="${t.title}">Title</div>
+                            <div class="track-artist" th:text="${t.artistName}">Artist</div>
+                        </div>
+                        <audio th:if="${t.previewUrl}" th:src="${t.previewUrl}"
+                               controls preload="none"></audio>
                     </div>
-                    <audio th:if="${t.previewUrl}" th:src="${t.previewUrl}"
-                           controls preload="none"></audio>
                 </a>
             </li>
         </ul>
