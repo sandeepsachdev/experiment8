@@ -35,7 +35,9 @@
         <ul class="track-list">
             <li th:each="t : ${topTracks}">
                 <a th:href="@{/track/{id}(id=${t.id})}" class="track-row">
-                    <img th:if="${t.albumCover}" th:src="${t.albumCover}" th:alt="${t.title}"/>
+                    <div class="cover">
+                        <img th:if="${t.albumCover}" th:src="${t.albumCover}" th:alt="${t.title}"/>
+                    </div>
                     <div class="track-info">
                         <div class="track-title" th:text="${t.title}">Title</div>
                         <div class="track-artist" th:text="${t.artistName}">Artist</div>
@@ -65,7 +67,9 @@
         <ul class="track-list">
             <li th:each="t : ${rec.similarTracks}">
                 <a th:href="@{/track/{id}(id=${t.id})}" class="track-row">
-                    <img th:if="${t.albumCover}" th:src="${t.albumCover}" th:alt="${t.title}"/>
+                    <div class="cover">
+                        <img th:if="${t.albumCover}" th:src="${t.albumCover}" th:alt="${t.title}"/>
+                    </div>
                     <div class="track-info">
                         <div class="track-title" th:text="${t.title}">Title</div>
                         <div class="track-artist" th:text="${t.artistName}">Artist</div>
