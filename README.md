@@ -48,11 +48,8 @@ docker run --rm -p 8080:8080 tuneful
 The repo ships with `render.yaml` — create a new web service from this repo on
 [Render](https://render.com) and it will pick up the Docker config automatically.
 
-### Railway
-
-The repo ships with `railway.json`. Create a new project from this repo on
-[Railway](https://railway.app); it will build the Dockerfile and expose
-`$PORT` automatically (the app reads `PORT` and falls back to 8080 locally).
+Any Docker-based host works the same way: the app reads `$PORT` from the
+environment and falls back to 8080 locally.
 
 ## Endpoints
 
